@@ -219,6 +219,9 @@ DFS may use more recursion stack memory and can go very deep in large graphs.
 
 # Screenshots
 
+![1](../docs/screenshots/output 1.png)
+
+![2](../docs/screenshots/output 2_3.png)
 
 # Reflection
 
