@@ -220,11 +220,11 @@ DFS may use more recursion stack memory and can go very deep in large graphs.
 # Screenshots 
 1 Output 
 
-![1](../docs/screenshots/output 1.png)
+![1](../docs/screenshots/output1.png)
 
 2 Output
 
-![2](../docs/screenshots/output 2_3.png)
+![2](../docs/screenshots/output2_3.png)
 
 # Reflection
 
