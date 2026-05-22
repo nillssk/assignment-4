@@ -1,4 +1,4 @@
-# Assignment 4: Graph Traversal and Representation System
+# Assignment 4: Graph Traversal and Representation System# Assignment 4: Graph Traversal and Representation System
 
 ## Project Overview
 
@@ -10,6 +10,8 @@ I implemented two graph traversal algorithms:
 
 * Breadth-First Search (BFS)
 * Depth-First Search (DFS)
+
+I also added Dijkstra’s Algorithm as a bonus task to find the shortest path in a weighted graph.
 
 The purpose of this project was to understand how graph traversal works and compare BFS and DFS performance on graphs with different sizes.
 
@@ -32,7 +34,7 @@ A graph is a structure made of:
 
 Example:
 
-```text id="u1"
+```text
 0 -> 1 2
 1 -> 3 4
 2 -> 5 6
@@ -41,6 +43,17 @@ Example:
 This project uses an adjacency list representation.
 
 An adjacency list stores neighboring vertices for each vertex.
+
+For Dijkstra Algorithm, the graph was updated to support weighted edges.
+
+Example with weights:
+
+```text
+0 -> 1(4) 2(2)
+1 -> 3(5)
+```
+
+Numbers in brackets represent edge weights.
 
 ---
 
@@ -67,6 +80,7 @@ It contains:
 
 * source vertex
 * destination vertex
+* edge weight
 * getters
 * toString() method
 
@@ -83,6 +97,7 @@ Main methods:
 * printGraph()
 * bfs()
 * dfs()
+* dijkstra()
 
 ---
 
@@ -91,6 +106,7 @@ Main methods:
 The `Experiment` class is responsible for:
 
 * running BFS and DFS
+* running Dijkstra Algorithm
 * measuring execution time
 * testing graphs with different sizes
 
@@ -106,7 +122,7 @@ It uses a Queue data structure.
 
 Example traversal:
 
-```text id="u2"
+```text
 0 → 1 → 2 → 3 → 4
 ```
 
@@ -141,7 +157,7 @@ It uses recursion.
 
 Example traversal:
 
-```text id="u3"
+```text
 0 → 1 → 3 → 7 → 4
 ```
 
@@ -161,12 +177,60 @@ O(V+E)
 
 ---
 
+# Dijkstra Algorithm (Bonus Task)
+
+## What Dijkstra Does
+
+Dijkstra Algorithm finds the shortest path from one starting vertex to all other vertices in a weighted graph.
+
+---
+
+## How Dijkstra Works
+
+The algorithm:
+
+* starts from one vertex
+* finds the smallest distance
+* updates neighboring vertices
+* repeats until all vertices are visited
+
+---
+
+## Example
+
+```text
+0 -> 1 (4)
+0 -> 2 (2)
+```
+
+This means:
+
+* edge from 0 to 1 has weight 4
+* edge from 0 to 2 has weight 2
+
+---
+
+## Dijkstra Use Cases
+
+* GPS navigation
+* routing systems
+* shortest path problems
+* map applications
+
+---
+
+## Dijkstra Time Complexity
+
+O(V²)
+
+---
+
 # Experimental Results
 
-| Graph Size   |   BFS Time |   DFS Time |
-| ------------ | ---------: | ---------: |
-| 10 Vertices  | 1483900 ns |  353900 ns |
-| 30 Vertices  |  709000 ns |  816200 ns |
+| Graph Size   | BFS Time  | DFS Time  |
+| ------------ | --------: | --------: |
+| 10 Vertices  | 1483900 ns | 353900 ns |
+| 30 Vertices  | 709000 ns | 816200 ns |
 | 100 Vertices | 4199200 ns | 2138100 ns |
 
 ---
@@ -217,14 +281,33 @@ DFS may use more recursion stack memory and can go very deep in large graphs.
 
 ---
 
-# Screenshots 
-1 Output 
+## Why is Dijkstra useful?
 
-![1](../docs/screenshots/output1.png)
+Dijkstra is useful because it finds the shortest path in weighted graphs.
 
-2 Output
+It is commonly used in GPS and navigation systems.
 
-![2](../docs/screenshots/output2.png)
+---
+
+# Screenshots
+
+## 1 Output
+
+![1](docs/screenshots/output1.png)
+
+---
+
+## 2 Output
+
+![2](docs/screenshots/output2.png)
+
+---
+
+## 3 Dijkstra Output
+
+![3](docs/screenshots/output3.png)
+
+---
 
 # Reflection
 
@@ -232,6 +315,8 @@ This project helped me understand how graph traversal algorithms work in practic
 
 I learned the difference between BFS and DFS and how graph structure affects traversal order.
 
+I also learned how weighted graphs work and how Dijkstra Algorithm finds the shortest path.
+
 The most difficult part was understanding recursion in DFS and implementing the adjacency list correctly.
 
-I also learned how to measure algorithm performance using System.nanoTime() and compare execution times for different graph sizes.
+I also learned how to measure algorithm performance using `System.nanoTime()` and compare execution times for different graph sizes.

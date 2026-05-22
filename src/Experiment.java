@@ -1,12 +1,14 @@
 public class Experiment {
 
-    // run bfs and dfs
+    // run bfs dfs and dijkstra
     public void runTraversals(Graph g) {
 
         long start;
         long end;
 
+        // BFS
         System.out.println("BFS Traversal:");
+
         start = System.nanoTime();
 
         g.bfs(0);
@@ -17,7 +19,9 @@ public class Experiment {
 
         System.out.println();
 
+        // DFS
         System.out.println("DFS Traversal:");
+
         start = System.nanoTime();
 
         g.dfs(0);
@@ -25,6 +29,19 @@ public class Experiment {
         end = System.nanoTime();
 
         System.out.println("DFS Time: " + (end - start) + " ns");
+
+        System.out.println();
+
+        // Dijkstra
+        System.out.println("Dijkstra Algorithm:");
+
+        start = System.nanoTime();
+
+        g.dijkstra(0);
+
+        end = System.nanoTime();
+
+        System.out.println("Dijkstra Time: " + (end - start) + " ns");
 
         System.out.println("----------------------------");
     }
@@ -39,29 +56,28 @@ public class Experiment {
             g.addVertex(new Vertex(i));
         }
 
-        // add edges
-        g.addEdge(0, 1);
-        g.addEdge(0, 2);
+        // add weighted edges
+        g.addEdge(0, 1, 4);
+        g.addEdge(0, 2, 2);
 
-        g.addEdge(1, 3);
-        g.addEdge(1, 4);
+        g.addEdge(1, 3, 5);
+        g.addEdge(1, 4, 10);
 
-        g.addEdge(2, 5);
-        g.addEdge(2, 6);
+        g.addEdge(2, 5, 3);
+        g.addEdge(2, 6, 8);
 
-        g.addEdge(3, 7);
+        g.addEdge(3, 7, 6);
 
-        g.addEdge(4, 8);
+        g.addEdge(4, 8, 1);
 
-        g.addEdge(5, 9);
+        g.addEdge(5, 9, 7);
 
-// extra edges for larger graphs
+        // extra edges for larger graphs
         for (int i = 10; i < size; i++) {
 
-            g.addVertex(new Vertex(i));
-
-            g.addEdge(i - 1, i);
+            g.addEdge(i - 1, i, 1);
         }
+
         return g;
     }
 
@@ -77,8 +93,11 @@ public class Experiment {
             Graph g = createGraph(size);
 
             if (size == 10) {
+
                 System.out.println("Graph Structure:");
+
                 g.printGraph();
+
                 System.out.println();
             }
 

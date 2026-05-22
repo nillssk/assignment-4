@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Graph {
 
-    private Map<Integer, List<Integer>> adjacencyList;
+    private Map<Integer, List<Edge>> adjacencyList;
 
     public Graph() {
         adjacencyList = new HashMap<>();
@@ -13,9 +13,9 @@ public class Graph {
         adjacencyList.putIfAbsent(v.getId(), new ArrayList<>());
     }
 
-    // add edge
-    public void addEdge(int from, int to) {
-        adjacencyList.get(from).add(to);
+    // add edge with weight
+    public void addEdge(int from, int to, int weight) {
+        adjacencyList.get(from).add(new Edge(from, to, weight));
     }
 
     // print graph
@@ -25,15 +25,15 @@ public class Graph {
 
             System.out.print(vertex + " -> ");
 
-            for (int neighbor : adjacencyList.get(vertex)) {
-                System.out.print(neighbor + " ");
+            for (Edge edge : adjacencyList.get(vertex)) {
+                System.out.print(edge + " ");
             }
 
             System.out.println();
         }
     }
 
-    // bfs traversal
+    // BFS traversal
     public void bfs(int start) {
 
         Set<Integer> visited = new HashSet<>();
@@ -48,20 +48,22 @@ public class Graph {
 
             System.out.print(current + " ");
 
-            for (int neighbor : adjacencyList.get(current)) {
+            for (Edge edge : adjacencyList.get(current)) {
+
+                int neighbor = edge.getDestination();
 
                 if (!visited.contains(neighbor)) {
+
                     visited.add(neighbor);
                     queue.add(neighbor);
                 }
-
             }
         }
 
         System.out.println();
     }
 
-    // dfs traversal
+    // DFS traversal
     public void dfs(int start) {
 
         Set<Integer> visited = new HashSet<>();
@@ -77,12 +79,65 @@ public class Graph {
 
         System.out.print(current + " ");
 
-        for (int neighbor : adjacencyList.get(current)) {
+        for (Edge edge : adjacencyList.get(current)) {
+
+            int neighbor = edge.getDestination();
 
             if (!visited.contains(neighbor)) {
                 dfsHelper(neighbor, visited);
             }
-
         }
+    }
+
+    // Dijkstra Algorithm
+    public void dijkstra(int start) {
+
+        int size = adjacencyList.size();
+
+        int[] distance = new int[size];
+        boolean[] visited = new boolean[size];
+
+        Arrays.fill(distance, Integer.MAX_VALUE);
+
+        distance[start] = 0;
+
+        for (int i = 0; i < size - 1; i++) {
+
+            int minVertex = -1;
+
+            for (int j = 0; j < size; j++) {
+
+                if (!visited[j] &&
+                        (minVertex == -1 ||
+                                distance[j] < distance[minVertex])) {
+
+                    minVertex = j;
+                }
+            }
+
+            visited[minVertex] = true;
+
+            for (Edge edge : adjacencyList.get(minVertex)) {
+
+                int neighbor = edge.getDestination();
+                int weight = edge.getWeight();
+
+                if (!visited[neighbor]
+                        && distance[minVertex] != Integer.MAX_VALUE
+                        && distance[minVertex] + weight < distance[neighbor]) {
+
+                    distance[neighbor] =
+                            distance[minVertex] + weight;
+                }
+            }
+        }
+
+        System.out.println("Shortest distances from vertex " + start + ":");
+
+        for (int i = 0; i < distance.length; i++) {
+            System.out.println(start + " -> " + i + " = " + distance[i]);
+        }
+
+        System.out.println();
     }
 }
